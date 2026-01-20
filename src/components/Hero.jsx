@@ -1,22 +1,36 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { motion } from "framer-motion";
-import Spline from "@splinetool/react-spline";
 import { useIsMobile } from "../hooks/useIsMobile";
+import { useGPUTier } from "../hooks/useGPUTier";
+import AnimatedGradient from "./AnimatedGradient";
+
+const Spline = lazy(() => import("@splinetool/react-spline"));
 
 const Hero = () => {
   const isMobile = useIsMobile();
+  const gpuTier = useGPUTier();
+
+  // 3-Tier System
+  const showSpline = !isMobile && gpuTier === 'high';
+  const showAnimatedGradient = !isMobile && (gpuTier === 'medium' || gpuTier === 'low');
+  const showStaticGradient = isMobile;
 
   return (
     <section className="relative overflow-hidden isolate py-28 md:py-36">
-      {/* Spline background - DESKTOP ONLY */}
-      {!isMobile && (
-        <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.45]">
-          <Spline scene="https://prod.spline.design/EF7JOSsHLk16Tlw9/scene.splinecode" />
-        </div>
+      {/* Tier 1: Full Spline 3D - HIGH-END GPU (NVIDIA, AMD, Apple M) */}
+      {showSpline && (
+        <Suspense fallback={<AnimatedGradient />}>
+          <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.45]">
+            <Spline scene="https://prod.spline.design/EF7JOSsHLk16Tlw9/scene.splinecode" />
+          </div>
+        </Suspense>
       )}
 
-      {/* Static gradient background - MOBILE ONLY */}
-      {isMobile && (
+      {/* Tier 2: Animated Gradient - INTEGRATED GPU (Intel HD, etc) */}
+      {showAnimatedGradient && <AnimatedGradient />}
+
+      {/* Tier 3: Static Gradient - MOBILE */}
+      {showStaticGradient && (
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-purple-900/20 via-blue-900/20 to-cyan-900/20" />
       )}
 
