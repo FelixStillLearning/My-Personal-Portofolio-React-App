@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
+import { useIsMobile } from "./hooks/useIsMobile";
 
 // Lazy load ALL components except critical Navbar
 const Hero = lazy(() => import("./components/Hero"));
@@ -10,14 +11,17 @@ const Noise = lazy(() => import("./components/Noise"));
 const CustomCursor = lazy(() => import("./components/CustomCursor"));
 
 function App() {
+  const isMobile = useIsMobile();
   return (
     <div className="min-h-screen bg-[#09090b] text-[#ededed] relative cursor-none">
-      {/* environmental layers - deferred for performance */}
-      <Suspense fallback={null}>
-        <Starfield />
-        <Noise />
-        <CustomCursor />
-      </Suspense>
+      {/* Environmental layers - DESKTOP ONLY for performance */}
+      {!isMobile && (
+        <Suspense fallback={null}>
+          <Starfield />
+          <Noise />
+          <CustomCursor />
+        </Suspense>
+      )}
 
       {/* navigation - critical, load immediately */}
       <Navbar />
