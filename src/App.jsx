@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
 import BentoGrid from "./components/BentoGrid";
 import TechMarquee from "./components/TechMarquee";
 import Starfield from "./components/Starfield";
 import Noise from "./components/Noise";
 import CustomCursor from "./components/CustomCursor";
+
+// Lazy load Hero component (contains heavy Spline 3D library)
+const Hero = lazy(() => import("./components/Hero"));
 
 function App() {
   return (
@@ -18,8 +20,19 @@ function App() {
       {/* navigation */}
       <Navbar />
 
-      {/* hero */}
-      <Hero />
+      {/* hero - lazy loaded with Suspense */}
+      <Suspense
+        fallback={
+          <div className="relative py-28 md:py-36 flex items-center justify-center min-h-[400px]">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-8 h-8 border-2 border-zinc-700 border-t-zinc-400 rounded-full animate-spin"></div>
+              <span className="text-sm text-zinc-500 animate-pulse">Loading experience...</span>
+            </div>
+          </div>
+        }
+      >
+        <Hero />
+      </Suspense>
 
       {/* bento grid */}
       <BentoGrid />

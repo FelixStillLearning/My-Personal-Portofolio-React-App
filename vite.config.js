@@ -32,10 +32,32 @@ export default defineConfig({
     chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return 'vendor';
-          }
+        manualChunks: {
+          // Chunk untuk Spline (library terbesar ~4MB)
+          'spline': ['@splinetool/react-spline'],
+
+          // Chunk untuk UI libraries Radix
+          'radix-ui': [
+            '@radix-ui/react-slot',
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-label',
+            '@radix-ui/react-select',
+            '@radix-ui/react-separator',
+            '@radix-ui/react-switch',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-toast',
+            '@radix-ui/themes'
+          ],
+
+          // Chunk untuk animation library
+          'animations': ['framer-motion'],
+
+          // Chunk untuk React core libraries
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+
+          // Chunk untuk utility libraries
+          'utils': ['lucide-react', 'clsx', 'tailwind-merge', 'class-variance-authority']
         }
       }
     }

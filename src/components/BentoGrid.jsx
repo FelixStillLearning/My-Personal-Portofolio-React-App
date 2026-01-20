@@ -40,9 +40,8 @@ const BentoCard = ({ project, large }) => {
       ref={ref}
       href={project.link}
       onMouseMove={onMouseMove}
-      className={`group relative overflow-hidden rounded-2xl border border-zinc-700/40 bg-zinc-900/40 backdrop-blur-sm transition-shadow hover:shadow-[0_0_0_1px_rgba(255,255,255,0.08)] focus:outline-none cursor-target ${
-        large ? "md:col-span-3" : "md:col-span-3"
-      }`}
+      className={`group relative overflow-hidden rounded-2xl border border-zinc-700/40 bg-zinc-900/40 backdrop-blur-sm transition-shadow hover:shadow-[0_0_0_1px_rgba(255,255,255,0.08)] focus:outline-none cursor-target ${large ? "md:col-span-3" : "md:col-span-3"
+        }`}
       style={{
         background:
           "radial-gradient(200px circle at var(--x) var(--y), rgba(255,255,255,0.08), transparent 40%)",
@@ -52,6 +51,7 @@ const BentoCard = ({ project, large }) => {
         <img
           src={project.image}
           alt={project.title}
+          loading="lazy"
           className="h-full w-full object-cover transition-all duration-500 filter grayscale group-hover:grayscale-0"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent to-transparent opacity-80" />
