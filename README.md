@@ -1,40 +1,32 @@
-# Portfolio Website
+# Frontend App
 
-A modern fullstack portfolio website built with React (Vite), FastAPI, and PostgreSQL (Supabase). Designed to showcase projects and skills with a minimalist, glassmorphism aesthetic.
+A simple React + Vite frontend template for your application.
 
-**Live Demo:** [your-portfolio.vercel.app](https://your-portfolio.vercel.app)
+## Setup
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Run the development server:
+```bash
+npm run dev
+```
 
 ## Features
 
-- **Modern Design:** Minimalist interface with glassmorphism effects and smooth Framer Motion animations.
-- **Responsive:** Fully responsive layout optimized for all devices.
-- **Dynamic Content:** Projects and data managed via PostgreSQL (Supabase) backend.
-- **Performance:** Lightning-fast load times powered by Vite.
-- **Dark Mode:** Elegant dark theme with custom interactive elements.
+- Clean, minimal starting template
+- Tailwind CSS for styling
+- Ready to connect to your backend API
+- Hot module replacement for fast development
 
-## Tech Stack
+## Connecting to Backend
 
-**Frontend:**
-- React 18
-- Vite
-- Tailwind CSS
-- Framer Motion
-- Spline (3D)
+To connect to your FastAPI backend, you can use `fetch` or a library like `axios`:
 
-**Backend:**
-- FastAPI (Python)
-- PostgreSQL (Supabase / Vercel Postgres)
-- SQLAlchemy (ORM)
-- Mangum (Serverless Adapter)
-
-**Deployment:**
-- Vercel
-
-## Contact
-
-**Felix Angga Resky**
-
-- Website: [your-portfolio.vercel.app](https://your-portfolio.vercel.app)
-- GitHub: [@FelixStillLearning](https://github.com/felixstilllearning)
-- LinkedIn: [Felix Angga Resky](https://linkedin.com/in/felixanggaresky)
-- Email: felixangga077@gmail.com
+```javascript
+// Example API call
+const response = await fetch('http://localhost:8000/api/endpoint');
+const data = await response.json();
+```
