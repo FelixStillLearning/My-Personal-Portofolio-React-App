@@ -1,0 +1,44 @@
+# Basics
+.DS_Store
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+*.log
+*.local
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+
+# Next.js / Vercel
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# Misc
+*.swp
+*.swo
+
+# Tutorials & Templates (Excluded from Repo)
+CHECKLIST.md
+FILES_CREATED.md
+PANDUAN_DEPLOYMENT.md
+STEP_BY_STEP.md
+TESTING_GUIDE.md
+TEMPLATE_CONSTANTS.js
+
