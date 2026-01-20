@@ -26,5 +26,18 @@ export default defineConfig({
       'localhost',
       '127.0.0.1'
     ]
+  },
+  build: {
+    sourcemap: false,
+    chunkSizeWarningLimit: 1600,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        }
+      }
+    }
   }
 })
