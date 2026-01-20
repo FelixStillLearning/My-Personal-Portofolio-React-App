@@ -1,23 +1,25 @@
 import React, { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
-import BentoGrid from "./components/BentoGrid";
-import TechMarquee from "./components/TechMarquee";
-import Starfield from "./components/Starfield";
-import Noise from "./components/Noise";
-import CustomCursor from "./components/CustomCursor";
 
-// Lazy load Hero component (contains heavy Spline 3D library)
+// Lazy load ALL components except critical Navbar
 const Hero = lazy(() => import("./components/Hero"));
+const BentoGrid = lazy(() => import("./components/BentoGrid"));
+const TechMarquee = lazy(() => import("./components/TechMarquee"));
+const Starfield = lazy(() => import("./components/Starfield"));
+const Noise = lazy(() => import("./components/Noise"));
+const CustomCursor = lazy(() => import("./components/CustomCursor"));
 
 function App() {
   return (
     <div className="min-h-screen bg-[#09090b] text-[#ededed] relative cursor-none">
-      {/* environmental layers */}
-      <Starfield />
-      <Noise />
-      <CustomCursor />
+      {/* environmental layers - deferred for performance */}
+      <Suspense fallback={null}>
+        <Starfield />
+        <Noise />
+        <CustomCursor />
+      </Suspense>
 
-      {/* navigation */}
+      {/* navigation - critical, load immediately */}
       <Navbar />
 
       {/* hero - lazy loaded with Suspense */}
@@ -34,11 +36,15 @@ function App() {
         <Hero />
       </Suspense>
 
-      {/* bento grid */}
-      <BentoGrid />
+      {/* bento grid - below fold, lazy loaded */}
+      <Suspense fallback={<div className="min-h-[300px]" />}>
+        <BentoGrid />
+      </Suspense>
 
-      {/* tech marquee */}
-      <TechMarquee />
+      {/* tech marquee - below fold, lazy loaded */}
+      <Suspense fallback={null}>
+        <TechMarquee />
+      </Suspense>
 
       {/* footer */}
       <footer id="contact" className="relative py-16">
